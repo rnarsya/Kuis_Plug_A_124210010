@@ -1,0 +1,40 @@
+import 'package:flutter/material.dart';
+import 'package:tes_modul4/halaman_detail.dart';
+import 'package:tes_modul4/tourism_place.dart';
+
+class HalamanUtama extends StatelessWidget {
+  const HalamanUtama({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Halaman Utama"),
+      ),
+      body: ListView.builder(
+          itemCount: tourismPlaceList.length,
+          itemBuilder: (context, index) {
+            final TourismPlace place = tourismPlaceList[index];
+            return InkWell(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context){
+                  return HalamanDetail(place: place);
+                }));
+              },
+              child: Card(
+                child: Row(
+                  children: [
+                    Container(
+                      height: MediaQuery.of(context).size.height / 4,
+                      width: MediaQuery.of(context).size.width / 4,
+                      child: Image.network(place.imageUrls[0]),
+                    ), SizedBox(width: 20),
+                    Text(place.name)
+                  ],
+                ),
+              ),
+            );
+          }),
+    );
+  }
+}
